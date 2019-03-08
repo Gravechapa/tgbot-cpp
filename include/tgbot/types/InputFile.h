@@ -40,11 +40,6 @@ public:
     typedef std::shared_ptr<InputFile> Ptr;
 
     /**
-     * @brief Contents of a file.
-     */
-    std::string data;
-
-    /**
      * @brief Mime type of a file.
      */
     std::string mimeType;
@@ -52,7 +47,7 @@ public:
     /**
      * @brief File name.
      */
-    std::string fileName;
+    std::string filePath;
 
     /**
      * @brief Creates new InputFile::Ptr from an existing file.

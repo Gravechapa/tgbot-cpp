@@ -61,11 +61,14 @@ std::string CurlHttpClient::makeRequest(const Url& url, const std::vector<HttpRe
         for (const HttpReqArg& a : args) {
             part = curl_mime_addpart(mime);
 
-            curl_mime_data(part, a.value.c_str(), a.value.size());
             curl_mime_type(part, a.mimeType.c_str());
             curl_mime_name(part, a.name.c_str());
             if (a.isFile) {
-                curl_mime_filename(part, a.fileName.c_str());
+                curl_mime_filedata(part, a.value.c_str());
+            }
+            else
+            {
+                curl_mime_data(part, a.value.c_str(), a.value.size());
             }
         }
         curl_easy_setopt(curl, CURLOPT_MIMEPOST, mime);

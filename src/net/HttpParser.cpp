@@ -25,6 +25,7 @@
 #include <boost/algorithm/string.hpp>
 
 #include "tgbot/tools/StringTools.h"
+#include "tgbot/tools/FileTools.h"
 
 using namespace std;
 using namespace boost;
@@ -101,8 +102,11 @@ string HttpParser::generateMultipartFormData(const vector<HttpReqArg>& args, con
 string HttpParser::generateMultipartBoundary(const vector<HttpReqArg>& args) const {
     string result;
     srand((uint32_t) time(nullptr));
-    for (const HttpReqArg& item : args) {
+    vector<HttpReqArg>* mutableArgs = const_cast<vector<HttpReqArg>*>(&args);
+    for (HttpReqArg& item : *mutableArgs) {
         if (item.isFile) {
+            item.fileName = StringTools::split(item.value, '/').back();
+            item.value = FileTools::read(item.value);
             while (result.empty() || item.value.find(result) != string::npos) {
                 result += StringTools::generateRandomString(4);
             }

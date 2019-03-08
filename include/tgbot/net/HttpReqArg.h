@@ -41,8 +41,8 @@ class HttpReqArg {
 
 public:
     template<typename T>
-    HttpReqArg(std::string name, const T& value, bool isFile = false, std::string mimeType = "text/plain", std::string fileName = "") :
-            name(std::move(name)), value(boost::lexical_cast<std::string>(value)), isFile(isFile), mimeType(std::move(mimeType)), fileName(std::move(fileName))
+    HttpReqArg(std::string name, const T& value, bool isFile = false, std::string mimeType = "text/plain") :
+            name(std::move(name)), value(boost::lexical_cast<std::string>(value)), isFile(isFile), mimeType(std::move(mimeType))
     {
     }
 
